@@ -32,8 +32,8 @@ const prueba = (request, response) => {
 
 
 const createUser = (request, response) => {
-  const {id, username, firstname, lastname, email, password, device, ip, iplocalization, service, birthdate, locality} = request.body
-  pool.query('INSERT INTO users (id, username, firstname, lastname, email, password, device, ip, iplocalization, service, birthdate, locality, registerdate, registertime) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12 CURRENT_DATE, LOCALTIME)', [id, username, firstname, lastname, email, password, device, ip, iplocalization, service, birthdate, locality], (error, results) => {
+  const {id, username, firstname, lastname, email, password, device, ip, iplocalization, service, birthdate, locality, sex} = request.body
+  pool.query('INSERT INTO users (id, username, firstname, lastname, email, password, device, ip, iplocalization, service, birthdate, locality, sex, registerdate, registertime) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13, CURRENT_DATE, LOCALTIME)', [id, username, firstname, lastname, email, password, device, ip, iplocalization, service, birthdate, locality, sex], (error, results) => {
     if (error) {
       throw error
     }
