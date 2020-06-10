@@ -13,8 +13,9 @@ app.use(
 
 app.get('/users', dbu.getUserById)
 app.post('/users', dbu.createUser)
-
-app.get('/prueba', dbu.prueba)
+app.delete('/users', dbu.deleteUser)
+app.get('/email', dbu.checkMail)
+app.get('/username', dbu.checkUsername)
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
