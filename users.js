@@ -50,15 +50,29 @@ const checkMail = (request, response) => {
 const createUser = (request, response) => {
   const {id, username, firstname, lastname, email, password, device, ip, iplocalization, service, birthdate, locality, sex} = request.body
   if(sex == "null" && birthdate == "null"){
-    pool.query('INSERT INTO users (id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, registerdate, registertime) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11, CURRENT_DATE, LOCALTIME)', [id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality], (error, results) => {
-      if (error) {
-        response.status(400).send(error)
-      }
-      else{
-        response.status(201).send(`User added with id: ${id}`)
-      }
-      
-    })
+    if(username== "null" && password == "null"){
+      pool.query('INSERT INTO users (id, firstname, lastname, email, device, ip, iplocalization, service, locality, registerdate, registertime) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9, CURRENT_DATE, LOCALTIME)', [id, firstname, lastname, email, device, ip, iplocalization, service, locality], (error, results) => {
+        if (error) {
+          throw error
+        }
+        else{
+          response.status(201).send(`User added with id: ${id}`)
+        }
+        
+      })
+    }
+    else{
+      pool.query('INSERT INTO users (id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, registerdate, registertime) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11, CURRENT_DATE, LOCALTIME)', [id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality], (error, results) => {
+        if (error) {
+          response.status(400).send(error)
+        }
+        else{
+          response.status(201).send(`User added with id: ${id}`)
+        }
+        
+      })
+    }
+    
   }
   else{
     pool.query('INSERT INTO users (id, username, firstname, lastname, email, password, device, ip, iplocalization, service, birthdate, locality, sex, registerdate, registertime) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13, CURRENT_DATE, LOCALTIME)', [id, username, firstname, lastname, email, password, device, ip, iplocalization, service, birthdate, locality, sex], (error, results) => {
