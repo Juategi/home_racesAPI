@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const dbu = require('./users')
+const dbc = require('./competitions')
 const app = express()
 const port = 3000
 
@@ -16,6 +17,7 @@ app.post('/users', dbu.createUser)
 app.delete('/users', dbu.deleteUser)
 app.get('/email', dbu.checkMail)
 app.get('/username', dbu.checkUsername)
+app.get('/competitions', dbc.getCompetitionsEnrolled)
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
