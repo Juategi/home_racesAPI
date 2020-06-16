@@ -61,10 +61,10 @@ const createUser = (request, response) => {
 
 const updateUser = (request, response) => {
   const {id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image, sex, birthdate} = request.body
-  if(birthdate != null){
+  if(birthdate != "null"){
     pool.query('update users set username = $2, firstname = $3, lastname = $4, email = $5, password = $6, device = $7, ip = $8, iplocalization = $9, service = $10, locality = $11, image = $12, sex = $13, birthdate = $14 where id = $1', [id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image, sex, birthdate], (error, results) => {
       if (error) {
-        response.status(400).send(error)
+        throw error
       }
       else{
         response.status(201).send(`User updated with id: ${id}`)
@@ -74,7 +74,7 @@ const updateUser = (request, response) => {
   else{
     pool.query('update users set username = $2, firstname = $3, lastname = $4, email = $5, password = $6, device = $7, ip = $8, iplocalization = $9, service = $10, locality = $11, image = $12, sex = $13 where id = $1', [id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image, sex], (error, results) => {
       if (error) {
-        response.status(400).send(error)
+        throw error
       }
       else{
         response.status(201).send(`User updated with id: ${id}`)
