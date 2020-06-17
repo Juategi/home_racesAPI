@@ -1,7 +1,7 @@
-INSERT INTO users (id, firstname, lastname, email, device, ip, iplocalization, service, locality, registerdate, registertime) VALUES ('a1','Pepe', 'Lopez', 'prueba@gmail.com', 'ANDROID', '0.0.0.0', '{}', 'G', 'Alicante', CURRENT_DATE, LOCALTIME);
-INSERT INTO users (id, firstname, lastname, email, device, ip, iplocalization, service, locality, registerdate, registertime) VALUES ('a2','Pepa', 'Garcia', 'prueba2@gmail.com', 'ANDROID', '0.0.0.0', '{}', 'G', 'Alicante', CURRENT_DATE, LOCALTIME);
-INSERT INTO users (id, firstname, lastname, email, device, ip, iplocalization, service, locality, registerdate, registertime) VALUES ('a3','Juan', 'Tena', 'prueba3@gmail.com', 'ANDROID', '0.0.0.0', '{}', 'G', 'Valencia', CURRENT_DATE, LOCALTIME);
-INSERT INTO users (id, firstname, lastname, email, device, ip, iplocalization, service, locality, registerdate, registertime) VALUES ('a4','Sara', 'Martinez', 'prueba4@gmail.com', 'ANDROID', '0.0.0.0', '{}', 'E', 'Castellon', CURRENT_DATE, LOCALTIME);
+INSERT INTO users (id, username, firstname, lastname, email, device, ip, iplocalization, service, locality, registerdate, registertime) VALUES ('a1','A1','Pepe', 'Lopez', 'prueba@gmail.com', 'ANDROID', '0.0.0.0', '{}', 'G', 'Alicante', CURRENT_DATE, LOCALTIME);
+INSERT INTO users (id,username, firstname, lastname, email, device, ip, iplocalization, service, locality, registerdate, registertime) VALUES ('a2','A2','Pepa', 'Garcia', 'prueba2@gmail.com', 'ANDROID', '0.0.0.0', '{}', 'G', 'Alicante', CURRENT_DATE, LOCALTIME);
+INSERT INTO users (id,username, firstname, lastname, email, device, ip, iplocalization, service, locality, registerdate, registertime) VALUES ('a3','A3','Juan', 'Tena', 'prueba3@gmail.com', 'ANDROID', '0.0.0.0', '{}', 'G', 'Valencia', CURRENT_DATE, LOCALTIME);
+INSERT INTO users (id,username, firstname, lastname, email, device, ip, iplocalization, service, locality, registerdate, registertime) VALUES ('a4','A4','Sara', 'Martinez', 'prueba4@gmail.com', 'ANDROID', '0.0.0.0', '{}', 'E', 'Castellon', CURRENT_DATE, LOCALTIME);
 
 
 INSERT INTO competition (name, image, eventdate, eventtime, maxdate, maxtime, type, modality, locality, price, capacity, rewards, promoted, observations, timezone) VALUES ('A por todas!', 'https://medicaloptica.es/blog/wp-content/uploads/2019/06/Audifonos-y-deporte-Medical-Optica-1024x683.jpeg', '2020-08-13', '10:30:00', '2020-08-10', '10:00:00', 'Public', 'Carrera', 'Valencia', 15.0, 30, '30€ de descuento en tiendas', 'P', 'Observaciones aqui', 'Hora Peninsular');
@@ -26,5 +26,7 @@ INSERT INTO favorites(userid, competitionid) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0
 INSERT INTO competitors (userid , competitionid, ip, iplocalization, shared, paid, address, indate, intime) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 1 , '0.0.0.0' , '{}', 0, 'P', 'C/ Prueba 70', CURRENT_DATE, LOCALTIME);
 INSERT INTO competitors (userid , competitionid, ip, iplocalization, shared, paid, address, indate, intime) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 2 , '0.0.0.0' , '{}', 0, 'P', 'C/ Prueba 70', CURRENT_DATE, LOCALTIME);
 INSERT INTO competitors (userid , competitionid, ip, iplocalization, shared, paid, address, indate, intime) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 3 , '0.0.0.0' , '{}', 0, 'P', 'C/ Prueba 70', CURRENT_DATE, LOCALTIME);
+
+
 
 
