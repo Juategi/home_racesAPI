@@ -16,10 +16,14 @@ app.get('/users', dbu.getUserById)
 app.post('/users', dbu.createUser)
 app.delete('/users', dbu.deleteUser)
 app.put('/users', dbu.updateUser)
+
 app.get('/email', dbu.checkMail)
 app.get('/username', dbu.checkUsername)
 app.get('/competitions', dbc.getCompetitionsEnrolled)
+
 app.get('/favorites', dbc.getCompetitionsFavorites)
+app.delete('/favorites', dbc.deleteFromFavorites)
+app.put('/favorites', dbc.addToFavorites)
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)

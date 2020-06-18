@@ -29,4 +29,5 @@ INSERT INTO competitors (userid , competitionid, ip, iplocalization, shared, pai
 
 
 
-
+INSERT INTO favorites(userid, competitionid) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3',4);
+INSERT INTO competitors (userid , competitionid, ip, iplocalization, shared, paid, address, indate, intime) VALUES ('iZPRzOkWDdWuD6IUl6spL4IJXyC2', 1 , '0.0.0.0' , '{}', 0, 'P', 'C/ Prueba 65', CURRENT_DATE, LOCALTIME);

@@ -1,7 +1,7 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'postgres',
-  host: '88.15.140.153',
+  host: 'localhost',
   database: 'homeraces',
   password: 'qHeNfB1d5jNOrf8o',
   port: 5432,
@@ -34,7 +34,35 @@ const getCompetitionsFavorites = (request, response) => {
   })
 }
 
+const deleteFromFavorites = (request, response) => {
+  const {userid, competitionid} = request.headers;
+  const statement = 'DELETE from favorites where userid = $1 and competitionid = $2'
+  pool.query(statement,[userid, competitionid], (error, results) => {
+    if (error) {
+      response.status(400).send(error)
+    }
+    else{
+      response.status(201).send(`Favorite deleted with id: ${competitionid}`)
+    }
+  })
+}
+
+const addToFavorites = (request, response) => {
+  const {userid, competitionid} = request.headers;
+  const statement = 'INSERT INTO favorites (userid, competitionid) VALUES ($1,$2)'
+  pool.query(statement,[userid, competitionid], (error, results) => {
+    if (error) {
+      response.status(400).send(error)
+    }
+    else{
+      response.status(201).send(`Favorite added with id: ${competitionid}`)
+    }
+  })
+}
+
 module.exports = {
     getCompetitionsEnrolled,
-    getCompetitionsFavorites
+    getCompetitionsFavorites,
+    deleteFromFavorites,
+    addToFavorites
 }
