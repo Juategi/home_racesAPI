@@ -19,7 +19,10 @@ app.put('/users', dbu.updateUser)
 
 app.get('/email', dbu.checkMail)
 app.get('/username', dbu.checkUsername)
+app.post('/organizer', dbc.createOrganizer)
+
 app.get('/competitions', dbc.getCompetitionsEnrolled)
+app.post('/competitions', dbc.createCompetition)
 
 app.get('/favorites', dbc.getCompetitionsFavorites)
 app.delete('/favorites', dbc.deleteFromFavorites)

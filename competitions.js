@@ -7,6 +7,29 @@ const pool = new Pool({
   port: 5432,
 })
 
+const createCompetition = (request, response) => {
+  const {name,image,type,modality,locality,price,capacity,timezone,rewards,observations,promoted,duration,eventdate,eventtime,maxdate,maxtime} = request.body
+    pool.query('INSERT INTO competition (name,image,type,modality,locality,price,capacity,timezone,rewards,observations,promoted,duration,eventdate,eventtime,maxdate,maxtime) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)RETURNING id', [name,image,type,modality,locality,price,capacity,timezone,rewards,observations,promoted,duration,eventdate,eventtime,maxdate,maxtime], (error, results) => {
+      if (error) {
+        throw error
+      }
+      else{
+        response.status(200).json(results.rows)
+      }
+    })
+}
+
+const createOrganizer = (request, response) => {
+  const {userid,competitionid,ip,iplocalization} = request.body
+    pool.query('INSERT INTO organizer (userid,competitionid,ip,iplocalization,createdate,createtime) VALUES ($1,$2,$3,$4,CURRENT_DATE,LOCALTIME)', [userid,competitionid,ip,iplocalization], (error, results) => {
+      if (error) {
+        throw error
+      }
+      else{
+        response.status(201).send(`Organizer added with id: ${userid}`)
+      }
+    })
+}
 
 const getCompetitionsEnrolled = (request, response) => {
     const {id} = request.headers;
@@ -64,5 +87,7 @@ module.exports = {
     getCompetitionsEnrolled,
     getCompetitionsFavorites,
     deleteFromFavorites,
-    addToFavorites
+    addToFavorites,
+    createCompetition,
+    createOrganizer
 }
