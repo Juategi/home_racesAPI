@@ -60,9 +60,25 @@ const getSubComments = (request, response) => {
     })
 }
 
+const sendReport = (request, response) => {
+    const {userid, commentid, report} = request.body
+    
+    pool.query('INSERT INTO report(userid, commentid, report) VALUES ($1,$2,$3)', [userid, commentid, report], (error, results) => {
+        if (error) {
+            throw error
+        }
+        else{
+            response.status(201).send(`Report sent with text: ${report}`)
+        }
+        })
+
+      
+  }
+
 
 module.exports = {
     getParentComments,
     getSubComments,
-    createComment
+    createComment,
+    sendReport
 }

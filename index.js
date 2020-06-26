@@ -21,6 +21,7 @@ app.put('/users', dbu.updateUser)
 app.get('/email', dbu.checkMail)
 app.get('/username', dbu.checkUsername)
 app.post('/organizer', dbc.createOrganizer)
+app.post('/report', dbco.sendReport)
 
 app.get('/competitions', dbc.getCompetitionsEnrolled)
 app.post('/competitions', dbc.createCompetition)
