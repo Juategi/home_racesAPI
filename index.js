@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const dbu = require('./users')
 const dbc = require('./competitions')
+const dbco = require('./comments')
 const app = express()
 const port = 3000
 
@@ -27,6 +28,10 @@ app.post('/competitions', dbc.createCompetition)
 app.get('/favorites', dbc.getCompetitionsFavorites)
 app.delete('/favorites', dbc.deleteFromFavorites)
 app.put('/favorites', dbc.addToFavorites)
+
+app.get('/comments', dbco.getParentComments)
+app.post('/comments', dbco.createComment)
+app.get('/subcomments', dbco.getSubComments)
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)

@@ -31,3 +31,16 @@ INSERT INTO competitors (userid , competitionid, ip, iplocalization, shared, pai
 
 INSERT INTO favorites(userid, competitionid) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3',4);
 INSERT INTO competitors (userid , competitionid, ip, iplocalization, shared, paid, address, indate, intime) VALUES ('iZPRzOkWDdWuD6IUl6spL4IJXyC2', 1 , '0.0.0.0' , '{}', 0, 'P', 'C/ Prueba 65', CURRENT_DATE, LOCALTIME);
+
+INSERT INTO comment(userid, competitionid, comment, ip, iplocalization, commentdate, commenttime) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 1, 'Comentario de prueba 1', '0.0.0.0', '{}', CURRENT_DATE, LOCALTIME);
+INSERT INTO comment(userid, competitionid, comment, ip, iplocalization, commentdate, commenttime) VALUES ('a2', 1, 'Comentario de prueba 2', '0.0.0.0', '{}', CURRENT_DATE, LOCALTIME);
+INSERT INTO comment(userid, competitionid, comment, ip, iplocalization, commentdate, commenttime) VALUES ('a1', 1, 'Comentario de prueba 3', '0.0.0.0', '{}', CURRENT_DATE, LOCALTIME);
+
+INSERT INTO comment(userid, competitionid, comment, ip, iplocalization, commentdate, commenttime, parentid) VALUES ('a2', 1, 'Comentario de prueba 2', '0.0.0.0', '{}', CURRENT_DATE, LOCALTIME, 1);
+
+INSERT INTO comment(userid, competitionid, comment, ip, iplocalization, commentdate, commenttime, parentid) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 1, 'Comentario de respuesta 2', '0.0.0.0', '{}', CURRENT_DATE, LOCALTIME, 2);
+
+
+
+SELECT c.*, u.image, cs.numanswers from users u, comment c  left join (select c.id, count(*) as numanswers from comment cs, comment c where cs.parentid = c.id group by c.id) as cs on cs.id = c.id  where c.competitionid = 1 and c.userid = u.id and parentid is null;
+
