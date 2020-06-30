@@ -4,6 +4,7 @@ const dbu = require('./users')
 const dbc = require('./competitions')
 const dbco = require('./comments')
 const dbs = require('./search')
+const dbn = require('./notifications')
 const app = express()
 const port = 3000
 
@@ -38,6 +39,10 @@ app.put('/favorites', dbc.addToFavorites)
 app.get('/comments', dbco.getParentComments)
 app.post('/comments', dbco.createComment)
 app.get('/subcomments', dbco.getSubComments)
+
+app.get('/notifications', dbn.getNotifications)
+app.delete('/notifications', dbn.deleteNotification)
+app.put('/notifications', dbn.createNotification)
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
