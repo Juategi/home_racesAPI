@@ -42,5 +42,6 @@ INSERT INTO comment(userid, competitionid, comment, ip, iplocalization, commentd
 
 
 
-SELECT c.*, u.image, cs.numanswers from users u, comment c  left join (select c.id, count(*) as numanswers from comment cs, comment c where cs.parentid = c.id group by c.id) as cs on cs.id = c.id  where c.competitionid = 1 and c.userid = u.id and parentid is null;
+
+
 

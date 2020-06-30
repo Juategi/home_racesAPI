@@ -57,6 +57,32 @@ const getCompetitionsFavorites = (request, response) => {
   })
 }
 
+const getCompetitionsPromoted = (request, response) => {
+  const {locality, limit} = request.headers;
+  const statement = "select n1.*, u.username as organizer from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join competitors e on c.id = e.competitionid group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id and n1.promoted = 'P' limit $1"
+  pool.query(statement,[limit], (error, results) => {
+    if (error) {
+      response.status(400).send(error)
+    }
+    else{
+      response.status(200).json(results.rows)
+    }
+  })
+}
+
+const getCompetitionsPopular = (request, response) => {
+  const {locality, limit} = request.headers;
+  const statement = "select n1.*, u.username as organizer from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join competitors e on c.id = e.competitionid group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id order by numcompetitors desc limit $1"
+  pool.query(statement,[limit], (error, results) => {
+    if (error) {
+      response.status(400).send(error)
+    }
+    else{
+      response.status(200).json(results.rows)
+    }
+  })
+}
+
 const deleteFromFavorites = (request, response) => {
   const {userid, competitionid} = request.headers;
   const statement = 'DELETE from favorites where userid = $1 and competitionid = $2'
@@ -83,11 +109,27 @@ const addToFavorites = (request, response) => {
   })
 }
 
+const enrrollCompetition = (request, response) => {
+  const {userid, competitionid, ip, iplocalization} = request.body;
+  const statement = 'INSERT INTO competitors (userid, competitionid, ip, iplocalization, shared, indate, intime) VALUES ($1,$2, $3, $4, 0, CURRENT_DATE,LOCALTIME)'
+  pool.query(statement,[userid, competitionid, ip, iplocalization], (error, results) => {
+    if (error) {
+      response.status(400).send(error)
+    }
+    else{
+      response.status(201).send(`Ok`)
+    }
+  })
+}
+
 module.exports = {
     getCompetitionsEnrolled,
     getCompetitionsFavorites,
     deleteFromFavorites,
     addToFavorites,
     createCompetition,
-    createOrganizer
+    createOrganizer,
+    enrrollCompetition,
+    getCompetitionsPromoted,
+    getCompetitionsPopular
 }

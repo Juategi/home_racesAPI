@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const dbu = require('./users')
 const dbc = require('./competitions')
 const dbco = require('./comments')
+const dbs = require('./search')
 const app = express()
 const port = 3000
 
@@ -22,6 +23,10 @@ app.get('/email', dbu.checkMail)
 app.get('/username', dbu.checkUsername)
 app.post('/organizer', dbc.createOrganizer)
 app.post('/report', dbco.sendReport)
+app.post('/enrroll', dbc.enrrollCompetition)
+app.get('/popular', dbc.getCompetitionsPopular)
+app.get('/promoted', dbc.getCompetitionsPromoted)
+app.get('/search', dbs.query)
 
 app.get('/competitions', dbc.getCompetitionsEnrolled)
 app.post('/competitions', dbc.createCompetition)

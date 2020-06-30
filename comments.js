@@ -71,8 +71,6 @@ const sendReport = (request, response) => {
             response.status(201).send(`Report sent with text: ${report}`)
         }
         })
-
-      
   }
 
 
