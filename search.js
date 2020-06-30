@@ -9,7 +9,7 @@ const pool = new Pool({
 
 const query = (request, response) => {
     const {query, option, locality, limit} = request.headers;
-    if(option = "None"){
+    if(option == "None"){
         const statement = "select n1.*, u.username as organizer from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join competitors e on c.id = e.competitionid group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id and n1.name ILIKE $2 order by n1.name asc limit $1"
         pool.query(statement,[limit,query], (error, results) => {
             if (error) {
@@ -20,7 +20,7 @@ const query = (request, response) => {
             }
         })
     }
-    else if(option = "Promoted"){
+    else if(option == "Promoted"){
         const statement = "select n1.*, u.username as organizer from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join competitors e on c.id = e.competitionid group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id and n1.promoted = 'P' and n1.name ILIKE $2 limit $1"
         pool.query(statement,[limit,query], (error, results) => {
         if (error) {
@@ -31,7 +31,7 @@ const query = (request, response) => {
         }
         })
     }
-    else if(option = "Popular"){
+    else if(option == "Popular"){
         const statement = "select n1.*, u.username as organizer from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join competitors e on c.id = e.competitionid group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id and n1.name ILIKE $2 order by numcompetitors desc limit $1"
         pool.query(statement,[limit,query], (error, results) => {
             if (error) {
