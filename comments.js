@@ -1,8 +1,7 @@
 const pool = require("./mypool").pool
 
 const createComment = (request, response) => {
-    const {userid, competitionid, comment, ip, iplocalization, parentid} = request.body
-    
+    const {userid, competitionid, comment, ip, iplocalization, parentid} = request.body;
     if(parentid == "null"){
         pool.query('INSERT INTO comment(userid, competitionid, comment, ip, iplocalization, commentdate, commenttime) VALUES ($1,$2,$3,$4,$5, CURRENT_DATE, LOCALTIME) RETURNING id', [userid, competitionid, comment, ip, iplocalization], (error, results) => {
             if (error) {

@@ -2,6 +2,7 @@ const express = require('express')
 const helmet = require('helmet')
 const compression = require('compression')
 const cluster = require('cluster')
+const bodyParser = require('body-parser')
 
 const dbu = require('./users')
 const dbc = require('./competitions')
@@ -28,6 +29,12 @@ else {
   const app = express()
   app.use(compression())
   app.use(helmet())
+  app.use(bodyParser.json())
+  app.use(
+  bodyParser.urlencoded({
+      extended: true,
+    })
+  )
 
   app.get('/users', dbu.getUserById)
   app.post('/users', dbu.createUser)
@@ -57,7 +64,7 @@ else {
 
   app.get('/notifications', dbn.getNotifications)
   app.delete('/notifications', dbn.deleteNotification)
-  app.put('/notifications', dbn.createNotification)
+  app.post('/notifications', dbn.createNotification)
 
   function doWork(duration) {
     const start = Date.now();

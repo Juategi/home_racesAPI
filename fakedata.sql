@@ -41,4 +41,7 @@ INSERT INTO comment(userid, competitionid, comment, ip, iplocalization, commentd
 INSERT INTO comment(userid, competitionid, comment, ip, iplocalization, commentdate, commenttime, parentid) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 1, 'Comentario de respuesta 2', '0.0.0.0', '{}', CURRENT_DATE, LOCALTIME, 2);
 
 
-INSERT INTO notification (userid,message,competitionid,ndate,ntime) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud . ', 1, CURRENT_DATE, LOCALTIME);
+INSERT INTO notification (userid,message,competitionid,ndate,ntime) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 'a1', 1, CURRENT_DATE, LOCALTIME);
+INSERT INTO notification (userid,message,competitionid,ndate,ntime) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 'a2', 1, CURRENT_DATE, LOCALTIME);
+INSERT INTO notification (userid,message,competitionid,ndate,ntime) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 'a3', 1, CURRENT_DATE, LOCALTIME);
+INSERT INTO notification (userid,message,competitionid,ndate,ntime) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 'a4', 1, CURRENT_DATE, LOCALTIME);
