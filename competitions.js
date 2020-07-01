@@ -24,6 +24,19 @@ const createOrganizer = (request, response) => {
     })
 }
 
+const getCompetitionById = (request, response) => {
+  const {id} = request.headers;
+  const statement = "select n1.*, u.username as organizer from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join competitors e on c.id = e.competitionid group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id and n1.id = $1"
+  pool.query(statement,[id], (error, results) => {
+    if (error) {
+      response.status(400).send(error)
+    }
+    else{
+      response.status(200).json(results.rows)
+    }
+  })
+}
+
 const getCompetitionsEnrolled = (request, response) => {
     const {id} = request.headers;
     const statement = 'select n1.*, u.username as organizer from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join competitors e on c.id = e.competitionid where e.userid = $1 group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id'
@@ -74,6 +87,7 @@ const getCompetitionsPopular = (request, response) => {
       response.status(200).json(results.rows)
     }
   })
+  
 }
 
 const deleteFromFavorites = (request, response) => {
@@ -124,5 +138,6 @@ module.exports = {
     createOrganizer,
     enrrollCompetition,
     getCompetitionsPromoted,
-    getCompetitionsPopular
+    getCompetitionsPopular,
+    getCompetitionById
 }

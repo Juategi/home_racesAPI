@@ -21,6 +21,7 @@ if( cluster.isMaster ) {
   });
   cluster.on( 'exit', function( worker, code, signal ) {
     console.log( 'worker ' + worker.process.pid + ' died.' );
+    cluster.fork();
   });
 }
 else {
@@ -42,6 +43,7 @@ else {
   app.get('/promoted', dbc.getCompetitionsPromoted)
   app.get('/search', dbs.query)
 
+  app.get('/competitionsid', dbc.getCompetitionById)
   app.get('/competitions', dbc.getCompetitionsEnrolled)
   app.post('/competitions', dbc.createCompetition)
 
@@ -57,9 +59,23 @@ else {
   app.delete('/notifications', dbn.deleteNotification)
   app.put('/notifications', dbn.createNotification)
 
+  function doWork(duration) {
+    const start = Date.now();
+    while (Date.now() - start < duration) {}
+  }
+
+  app.get('/hi',(req, res) => {
+    //console.log("Cluster ID",cluster.worker.id);
+    if (process.pid) {
+      console.log('This process is your pid ' + process.pid);
+    }
+    doWork(5000);
+    res.send("Done");
+  })
+  
   app.listen(port, () => {
       console.log(`App running on port ${port}.`)
     })
-
+  
 }
 
