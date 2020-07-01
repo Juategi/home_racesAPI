@@ -1,15 +1,8 @@
-const Pool = require('pg').Pool
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'homeraces',
-  password: 'qHeNfB1d5jNOrf8o',
-  port: 5432,
-})
+const pool = require("./mypool").pool
 
 const createNotification = (request, response) => {
-    const {userid,message} = request.body
-      pool.query('INSERT INTO notification (userid,message,ndate,ntime) VALUES ($1,$2,CURRENT_DATE, LOCALTIME)', [userid,message], (error, results) => {
+    const {userid,message, competitionid} = request.body
+      pool.query('INSERT INTO notification (userid,message,competitionid,idndate,ntime) VALUES ($1, $2, $3, CURRENT_DATE, LOCALTIME)', [userid,message, competitionid], (error, results) => {
         if (error) {
           throw error
         }

@@ -1,11 +1,4 @@
-const Pool = require('pg').Pool
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'homeraces',
-  password: 'qHeNfB1d5jNOrf8o',
-  port: 5432,
-})
+const pool = require("./mypool").pool
 
 const createCompetition = (request, response) => {
   const {name,image,type,modality,locality,price,capacity,timezone,rewards,observations,promoted,duration,eventdate,eventtime,maxdate,maxtime} = request.body

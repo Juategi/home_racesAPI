@@ -1,12 +1,4 @@
-const Pool = require('pg').Pool
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'homeraces',
-  password: 'qHeNfB1d5jNOrf8o',
-  port: 5432,
-})
-
+const pool = require("./mypool").pool
 
 const getUserById = (request, response) => {
     const {id} = request.headers;

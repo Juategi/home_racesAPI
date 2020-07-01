@@ -12,4 +12,4 @@ create table report(id serial unique, userid varchar(100) not null, commentid in
 
 create table favorites(userid varchar(100) not null, competitionid integer not null, primary key(userid,competitionid), CONSTRAINT user_id_fkey FOREIGN KEY (userid) REFERENCES users (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT competition_id_fkey FOREIGN KEY (competitionid) REFERENCES competition (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE);
 
-create table notification(id serial unique, userid varchar(100) not null, message text not null, ndate date not null, ntime time not null, CONSTRAINT user_id_fkey FOREIGN KEY (userid) REFERENCES users (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE);
+create table notification(id serial unique, userid varchar(100) not null, competitionid integer not null, message text not null, ndate date not null, ntime time not null, CONSTRAINT user_id_fkey FOREIGN KEY (userid) REFERENCES users (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE,CONSTRAINT competition_id_fkey FOREIGN KEY (competitionid) REFERENCES competition (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE);
