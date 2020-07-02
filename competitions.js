@@ -1,8 +1,8 @@
 const pool = require("./mypool").pool
 
 const createCompetition = (request, response) => {
-  const {name,image,type,modality,locality,price,capacity,timezone,rewards,observations,promoted,duration,eventdate,eventtime,maxdate,maxtime} = request.body
-    pool.query('INSERT INTO competition (name,image,type,modality,locality,price,capacity,timezone,rewards,observations,promoted,duration,eventdate,eventtime,maxdate,maxtime) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)RETURNING id', [name,image,type,modality,locality,price,capacity,timezone,rewards,observations,promoted,duration,eventdate,eventtime,maxdate,maxtime], (error, results) => {
+  const {name,image,type,modality,locality,price,capacity,timezone,rewards,observations,promoted,duration,gallery,eventdate,eventtime,maxdate,maxtime} = request.body
+    pool.query('INSERT INTO competition (name,image,type,modality,locality,price,capacity,timezone,rewards,observations,promoted,duration,gallery,eventdate,eventtime,maxdate,maxtime) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)RETURNING id', [name,image,type,modality,locality,price,capacity,timezone,rewards,observations,promoted,duration,gallery,eventdate,eventtime,maxdate,maxtime], (error, results) => {
       if (error) {
         throw error
       }
