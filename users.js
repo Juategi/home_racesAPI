@@ -40,8 +40,8 @@ const checkMail = (request, response) => {
 }
 
 const createUser = (request, response) => {
-  const {id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image} = request.body
-    pool.query('INSERT INTO users (id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image, registerdate, registertime) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12, CURRENT_DATE, LOCALTIME)', [id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image], (error, results) => {
+  const {id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image, country} = request.body
+    pool.query('INSERT INTO users (id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image, country, registerdate, registertime) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13, CURRENT_DATE, LOCALTIME)', [id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image, country], (error, results) => {
       if (error) {
         response.status(400).send(error)
       }
@@ -52,27 +52,15 @@ const createUser = (request, response) => {
 }
 
 const updateUser = (request, response) => {
-  const {id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image, sex, birthdate} = request.body
-  if(birthdate != "null"){
-    pool.query('update users set username = $2, firstname = $3, lastname = $4, email = $5, password = $6, device = $7, ip = $8, iplocalization = $9, service = $10, locality = $11, image = $12, sex = $13, birthdate = $14 where id = $1', [id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image, sex, birthdate], (error, results) => {
-      if (error) {
-        throw error
-      }
-      else{
-        response.status(201).send(`User updated with id: ${id}`)
-      }
-    })
-  }
-  else{
-    pool.query('update users set username = $2, firstname = $3, lastname = $4, email = $5, password = $6, device = $7, ip = $8, iplocalization = $9, service = $10, locality = $11, image = $12, sex = $13 where id = $1', [id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image, sex], (error, results) => {
-      if (error) {
-        throw error
-      }
-      else{
-        response.status(201).send(`User updated with id: ${id}`)
-      }
-    })
-  }
+  const {id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image, sex, birthdate, country, height, weight} = request.body
+  pool.query('update users set username = $2, firstname = $3, lastname = $4, email = $5, password = $6, device = $7, ip = $8, iplocalization = $9, service = $10, locality = $11, image = $12, sex = $13, birthdate = $14, country=$15, height=$16, weight=$17 where id = $1', [id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image, sex, birthdate, country, height, weight], (error, results) => {
+    if (error) {
+      throw error
+    }
+    else{
+      response.status(201).send(`User updated with id: ${id}`)
+    }
+  })
 }
 
 
