@@ -46,3 +46,7 @@ INSERT INTO notification (userid,message,competitionid,ndate,ntime) VALUES ('MuO
 INSERT INTO notification (userid,message,competitionid,ndate,ntime) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 'a2', 1, CURRENT_DATE, LOCALTIME);
 INSERT INTO notification (userid,message,competitionid,ndate,ntime) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 'a3', 1, CURRENT_DATE, LOCALTIME);
 INSERT INTO notification (userid,message,competitionid,ndate,ntime) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 'a4', 1, CURRENT_DATE, LOCALTIME);
+
+insert into followers(userid,followerid) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3','a1');
+
+SELECT f.followerid, u.username, u.firstname, u.lastname, u.image FROM followers f, users u WHERE f.userid = 'MuOh2S1rUxM58eLsGgqDKb3Lm0E3' and u.id = f.followerid;

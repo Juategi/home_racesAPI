@@ -77,8 +77,6 @@ const updateUser = (request, response) => {
 }
 
 
-
-
 const deleteUser = (request, response) => {
   const {id} = request.headers
     pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
@@ -89,8 +87,59 @@ const deleteUser = (request, response) => {
         response.status(201).send(`User deleted with id: ${id}`)
       }
     })
-  }
+}
  
+const addFollower = (request, response) => {
+  const {userid,followerid} = request.body
+    pool.query('INSERT INTO followers (userid,followerid) VALUES ($1,$2)', [userid,followerid], (error, results) => {
+      if (error) {
+        response.status(400).send(error)
+      }
+      else{
+        response.status(201).send(`Follower added with id: ${followerid}`)
+      }
+    })
+}
+
+const deleteFollower = (request, response) => {
+  const {userid,followerid} = request.headers
+    pool.query('DELETE FROM followers WHERE userid = $1 and followerid = $2', [userid,followerid], (error, results) => {
+      if (error) {
+        response.status(400).send(error)
+      }
+      else{
+        response.status(201).send(`Follower deleted with id: ${followerid}`)
+      }
+    })
+}
+
+const getFollowing = (request, response) => {
+  const {userid} = request.headers;
+  const statement = 'SELECT f.followerid, u.username, u.firstname, u.lastname, u.image FROM followers f, users u WHERE f.userid = $1 and u.id = f.followerid'
+  pool.query(statement,[userid], (error, results) => {
+    if (error) {
+      response.status(400).send(error)
+    }
+    else{
+      response.status(200).json(results.rows)
+    }
+  })
+}
+
+const getFollowers = (request, response) => {
+  const {userid} = request.headers;
+  const statement = 'SELECT f.userid, u.username, u.firstname, u.lastname, u.image FROM followers f, users u WHERE f.followerid = $1 and u.id = f.userid'
+  pool.query(statement,[userid], (error, results) => {
+    if (error) {
+      response.status(400).send(error)
+    }
+    else{
+      response.status(200).json(results.rows)
+    }
+  })
+}
+
+
 
 
 module.exports = {
@@ -99,5 +148,9 @@ module.exports = {
     checkUsername,
     checkMail,
     deleteUser,
-    updateUser
+    updateUser,
+    addFollower,
+    deleteFollower,
+    getFollowers,
+    getFollowing
 }

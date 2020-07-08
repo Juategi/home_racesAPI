@@ -41,6 +41,11 @@ else {
   app.delete('/users', dbu.deleteUser)
   app.put('/users', dbu.updateUser)
 
+  app.get('/followers', dbu.getFollowers)
+  app.get('/following', dbu.getFollowing)
+  app.post('/followers', dbu.addFollower)
+  app.delete('/followerss', dbu.deleteFollower)
+
   app.get('/email', dbu.checkMail)
   app.get('/username', dbu.checkUsername)
   app.post('/organizer', dbc.createOrganizer)
