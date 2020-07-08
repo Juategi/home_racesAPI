@@ -53,14 +53,27 @@ const createUser = (request, response) => {
 
 const updateUser = (request, response) => {
   const {id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image, sex, birthdate, country, height, weight} = request.body
-  pool.query('update users set username = $2, firstname = $3, lastname = $4, email = $5, password = $6, device = $7, ip = $8, iplocalization = $9, service = $10, locality = $11, image = $12, sex = $13, birthdate = $14, country=$15, height=$16, weight=$17 where id = $1', [id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image, sex, birthdate, country, height, weight], (error, results) => {
-    if (error) {
-      throw error
-    }
-    else{
-      response.status(201).send(`User updated with id: ${id}`)
-    }
-  })
+  if(birthdate != "null"){
+    pool.query('update users set username = $2, firstname = $3, lastname = $4, email = $5, password = $6, device = $7, ip = $8, iplocalization = $9, service = $10, locality = $11, image = $12, sex = $13, birthdate = $14, country=$15, height=$16, weight=$17 where id = $1', [id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image, sex, birthdate, country, height, weight], (error, results) => {
+      if (error) {
+        throw error
+      }
+      else{
+        response.status(201).send(`User updated with id: ${id}`)
+      }
+    })
+  }
+  else{
+    pool.query('update users set username = $2, firstname = $3, lastname = $4, email = $5, password = $6, device = $7, ip = $8, iplocalization = $9, service = $10, locality = $11, image = $12, sex = $13, country=$14, height=$15, weight=$16 where id = $1', [id, username, firstname, lastname, email, password, device, ip, iplocalization, service, locality, image, sex, country, height, weight], (error, results) => {
+      if (error) {
+        throw error
+      }
+      else{
+        response.status(201).send(`User updated with id: ${id}`)
+      }
+    })
+  }
+  
 }
 
 
