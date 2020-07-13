@@ -9,6 +9,7 @@ const dbc = require('./competitions')
 const dbco = require('./comments')
 const dbs = require('./search')
 const dbn = require('./notifications')
+const dbr = require('./races')
 const port = 3000
 const cCPUs   = require('os').cpus().length;
 
@@ -74,6 +75,9 @@ else {
   app.post('/private', dbc.addPrivate)
   app.get('/private', dbc.getPrivate)
   app.delete('/private', dbc.deletePrivate)
+
+  app.get('/partials', dbr.getPartials)
+  app.get('/races', dbr.getRaceByCompetitionId)
 
   function doWork(duration) {
     const start = Date.now();
