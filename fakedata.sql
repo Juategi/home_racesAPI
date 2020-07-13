@@ -64,4 +64,5 @@ insert into followers(userid,followerid) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3',
 insert into racedata (userid, competitionid, time, distance, steps, partials) values ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 28, 3000, 21, 40000, '{}');
 insert into racedata (userid, competitionid, time, distance, steps, partials) values ('a1', 28, 3500, 21, 41000, '{}');
 insert into racedata (userid, competitionid, time, distance, steps, partials) values ('a2', 28, 3300, 21, 40500, '{}');
+insert into racedata (userid, competitionid, time, distance, steps, partials) values ('a3', 28, 3300, 21, 40504, '{}');
 

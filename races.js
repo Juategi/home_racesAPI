@@ -2,7 +2,7 @@ const pool = require("./mypool").pool
 
 const getRaceByCompetitionId = (request, response) => {
     const {competitionid} = request.headers;
-    const statement = "select id, userid, time, distance, steps from racedata where competitionid = $1"
+    const statement = "select r.id, r.userid, r.time, r.distance, r.steps, u.image, u.firstname, u.lastname from racedata r left join users u on u.id = r.userid where r.competitionid = $1"
     pool.query(statement,[competitionid], (error, results) => {
       if (error) {
         response.status(400).send(error)
