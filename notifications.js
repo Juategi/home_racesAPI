@@ -1,8 +1,8 @@
 const pool = require("./mypool").pool
 
 const createNotification = (request, response) => {
-    const {userid,message, competitionid} = request.body
-      pool.query('INSERT INTO notification (userid,message,competitionid,ndate,ntime) VALUES ($1, $2, $3, CURRENT_DATE, LOCALTIME)', [userid,message, competitionid], (error, results) => {
+    const {userid,message, competitionid, userreference} = request.body
+      pool.query('INSERT INTO notification (userid,message,competitionid, userreference,ndate,ntime) VALUES ($1, $2, $3, $4, CURRENT_DATE, LOCALTIME)', [userid,message, competitionid, userreference], (error, results) => {
         if (error) {
           throw error
         }

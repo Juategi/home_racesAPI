@@ -71,6 +71,10 @@ else {
   app.delete('/notifications', dbn.deleteNotification)
   app.post('/notifications', dbn.createNotification)
 
+  app.post('/private', dbc.addPrivate)
+  app.get('/private', dbc.getPrivate)
+  app.delete('/private', dbc.deletePrivate)
+
   function doWork(duration) {
     const start = Date.now();
     while (Date.now() - start < duration) {}

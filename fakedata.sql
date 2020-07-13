@@ -28,6 +28,7 @@ INSERT INTO competitors (userid , competitionid, ip, iplocalization, shared, pai
 INSERT INTO competitors (userid , competitionid, ip, iplocalization, shared, paid, address, indate, intime) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 2 , '0.0.0.0' , '{}', 0, 'P', 'C/ Prueba 70', CURRENT_DATE, LOCALTIME);
 INSERT INTO competitors (userid , competitionid, ip, iplocalization, shared, paid, address, indate, intime) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 3 , '0.0.0.0' , '{}', 0, 'P', 'C/ Prueba 70', CURRENT_DATE, LOCALTIME);
 
+INSERT INTO competitors (userid , competitionid, ip, iplocalization, shared, indate, intime) VALUES ('a1', 32 , '0.0.0.0' , '{}', 0, CURRENT_DATE, LOCALTIME);
 
 
 INSERT INTO favorites(userid, competitionid) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3',4);
@@ -51,4 +52,12 @@ insert into followers(userid,followerid) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3',
 insert into followers(userid,followerid) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3','a2');
 insert into followers(userid,followerid) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3','a3');
 insert into followers(userid,followerid) VALUES ('a4','MuOh2S1rUxM58eLsGgqDKb3Lm0E3');
+
+insert into followers(userid,followerid) VALUES ('iZPRzOkWDdWuD6IUl6spL4IJXyC2','a1');
+insert into followers(userid,followerid) VALUES ('iZPRzOkWDdWuD6IUl6spL4IJXyC2','a2');
+insert into followers(userid,followerid) VALUES ('iZPRzOkWDdWuD6IUl6spL4IJXyC2','a3');
+insert into followers(userid,followerid) VALUES ('a4','iZPRzOkWDdWuD6IUl6spL4IJXyC2');
+
+insert into followers(userid,followerid) VALUES ('iZPRzOkWDdWuD6IUl6spL4IJXyC2','MuOh2S1rUxM58eLsGgqDKb3Lm0E3');
+insert into followers(userid,followerid) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3','iZPRzOkWDdWuD6IUl6spL4IJXyC2');
 

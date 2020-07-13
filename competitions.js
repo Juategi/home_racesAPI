@@ -39,7 +39,7 @@ const createOrganizer = (request, response) => {
 
 const getCompetitionById = (request, response) => {
   const {id} = request.headers;
-  const statement = "select n1.*, u.username as organizer from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join competitors e on c.id = e.competitionid group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id and n1.id = $1"
+  const statement = "select n1.*, u.username as organizer, u.id as organizerid from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join competitors e on c.id = e.competitionid group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id and n1.id = $1"
   pool.query(statement,[id], (error, results) => {
     if (error) {
       response.status(400).send(error)
@@ -52,7 +52,7 @@ const getCompetitionById = (request, response) => {
 
 const getCompetitionsEnrolled = (request, response) => {
     const {id} = request.headers;
-    const statement = 'select n1.*, u.username as organizer from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join competitors e on c.id = e.competitionid where e.userid = $1 group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id'
+    const statement = 'select n1.*, u.username as organizer, u.id as organizerid  from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join competitors e on c.id = e.competitionid where e.userid = $1 group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id'
     pool.query(statement,[id], (error, results) => {
       if (error) {
         response.status(400).send(error)
@@ -65,7 +65,7 @@ const getCompetitionsEnrolled = (request, response) => {
 
 const getCompetitionsFavorites = (request, response) => {
   const {id} = request.headers;
-  const statement = 'select n1.*, u.username as organizer from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join favorites f on c.id = f.competitionid where f.userid = $1 group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id'
+  const statement = 'select n1.*, u.username as organizer, u.id as organizerid  from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join favorites f on c.id = f.competitionid where f.userid = $1 group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id'
   pool.query(statement,[id], (error, results) => {
     if (error) {
       response.status(400).send(error)
@@ -78,7 +78,7 @@ const getCompetitionsFavorites = (request, response) => {
 
 const getCompetitionsPromoted = (request, response) => {
   const {locality, limit} = request.headers;
-  const statement = "select n1.*, u.username as organizer from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join competitors e on c.id = e.competitionid group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id and n1.promoted = 'P' limit $1"
+  const statement = "select n1.*, u.username as organizer, u.id as organizerid  from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join competitors e on c.id = e.competitionid group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id and n1.promoted = 'P' limit $1"
   pool.query(statement,[limit], (error, results) => {
     if (error) {
       response.status(400).send(error)
@@ -91,7 +91,7 @@ const getCompetitionsPromoted = (request, response) => {
 
 const getCompetitionsPopular = (request, response) => {
   const {locality, limit} = request.headers;
-  const statement = "select n1.*, u.username as organizer from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join competitors e on c.id = e.competitionid group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id order by numcompetitors desc limit $1"
+  const statement = "select n1.*, u.username as organizer, u.id as organizerid  from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join competitors e on c.id = e.competitionid group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id order by numcompetitors desc limit $1"
   pool.query(statement,[limit], (error, results) => {
     if (error) {
       response.status(400).send(error)
@@ -142,6 +142,45 @@ const enrrollCompetition = (request, response) => {
   })
 }
 
+const addPrivate = (request, response) => {
+  const {userid, competitionid, state} = request.body;
+  const statement = 'INSERT INTO private (userid, competitionid, state) VALUES ($1,$2,$3)'
+  pool.query(statement,[userid, competitionid, state], (error, results) => {
+    if (error) {
+      response.status(400).send(error)
+    }
+    else{
+      response.status(201).send(`Private accepted with id: ${userid}`)
+    }
+  })
+}
+
+const getPrivate = (request, response) => {
+  const {competitionid} = request.headers;
+  const statement = 'select userid, state from private where competitionid = $1'
+  pool.query(statement,[competitionid], (error, results) => {
+    if (error) {
+      response.status(400).send(error)
+    }
+    else{
+      response.status(200).json(results.rows)
+    }
+  })
+}
+
+const deletePrivate = (request, response) => {
+  const {userid, competitionid} = request.headers;
+  const statement = 'DELETE from private where userid = $1 and competitionid = $2'
+  pool.query(statement,[userid, competitionid], (error, results) => {
+    if (error) {
+      response.status(400).send(error)
+    }
+    else{
+      response.status(201).send(`Private deleted with id: ${userid}`)
+    }
+  })
+}
+
 module.exports = {
     getCompetitionsEnrolled,
     getCompetitionsFavorites,
@@ -152,5 +191,8 @@ module.exports = {
     enrrollCompetition,
     getCompetitionsPromoted,
     getCompetitionsPopular,
-    getCompetitionById
+    getCompetitionById,
+    addPrivate,
+    getPrivate,
+    deletePrivate
 }
