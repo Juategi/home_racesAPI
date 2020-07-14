@@ -2,7 +2,7 @@ const pool = require("./mypool").pool
 
 const getRaceByCompetitionId = (request, response) => {
     const {competitionid} = request.headers;
-    const statement = "select r.id, r.userid, r.time, r.distance, r.steps, u.image, u.firstname, u.lastname from racedata r left join users u on u.id = r.userid where r.competitionid = $1"
+    const statement = "select r.id, r.userid, r.time, r.distance, r.steps, u.image, u.firstname, u.lastname, u.sex, u.birthdate from racedata r left join users u on u.id = r.userid where r.competitionid = $1"
     pool.query(statement,[competitionid], (error, results) => {
       if (error) {
         response.status(400).send(error)
@@ -11,6 +11,19 @@ const getRaceByCompetitionId = (request, response) => {
         response.status(200).json(results.rows)
       }
     })
+}
+
+const getRaceByUserId = (request, response) => {
+  const {competitionid, userid} = request.headers;
+  const statement = "select id from racedata where competitionid = $1 and userid = $2"
+  pool.query(statement,[competitionid, userid], (error, results) => {
+    if (error) {
+      response.status(400).send(error)
+    }
+    else{
+      response.status(200).json(results.rows)
+    }
+  })
 }
 
 const getPartials = (request, response) => {
@@ -28,5 +41,6 @@ const getPartials = (request, response) => {
 
 module.exports = {
     getRaceByCompetitionId,
-    getPartials
+    getPartials,
+    getRaceByUserId
 }
