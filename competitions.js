@@ -103,6 +103,32 @@ const getCompetitionsPopular = (request, response) => {
   
 }
 
+const getCompetitionNumCompetitors = (request, response) => {
+  const {competitionid} = request.headers;
+  const statement = "select count(*) as numcompetitors from competitors where competitionid = $1"
+  pool.query(statement,[competitionid], (error, results) => {
+    if (error) {
+      response.status(400).send(error)
+    }
+    else{
+      response.status(200).json(results.rows)
+    }
+  })
+}
+
+const getCompetitionUserImages = (request, response) => {
+  const {competitionid} = request.headers;
+  const statement = "select image from users u left join competitors c on u.id = c.userid where c.competitionid = $1 order by c.indate desc limit 5;"
+  pool.query(statement,[competitionid], (error, results) => {
+    if (error) {
+      response.status(400).send(error)
+    }
+    else{
+      response.status(200).json(results.rows)
+    }
+  })
+}
+
 const deleteFromFavorites = (request, response) => {
   const {userid, competitionid} = request.headers;
   const statement = 'DELETE from favorites where userid = $1 and competitionid = $2'
@@ -194,5 +220,7 @@ module.exports = {
     getCompetitionById,
     addPrivate,
     getPrivate,
-    deletePrivate
+    deletePrivate,
+    getCompetitionNumCompetitors,
+    getCompetitionUserImages
 }

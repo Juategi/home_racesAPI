@@ -55,6 +55,8 @@ else {
   app.get('/popular', dbc.getCompetitionsPopular)
   app.get('/promoted', dbc.getCompetitionsPromoted)
   app.get('/search', dbs.query)
+  app.get('/numcompetitors', dbc.getCompetitionNumCompetitors)
+  app.get('/competitorsimages', dbc.getCompetitionUserImages)
 
   app.get('/competitionsid', dbc.getCompetitionById)
   app.get('/competitions', dbc.getCompetitionsEnrolled)
@@ -84,6 +86,21 @@ else {
     const start = Date.now();
     while (Date.now() - start < duration) {}
   }
+  app.get('/example',(request, response) => {
+    const pool = require("./mypool").pool
+    const statement = "SELECT * FROM users WHERE id = 'MuOh2S1rUxM58eLsGgqDKb3Lm0E3'"
+    if (process.pid) {
+      console.log('This process is your pid ' + process.pid);
+    }
+    pool.query(statement,[], (error, results) => {
+      if (error) {
+        throw error
+      }
+      else{
+        response.status(200).json(results.rows)
+      }
+    })
+  }) //loadtest --rps 50 http://37.14.57.15:3000/example
 
   app.get('/hi',(req, res) => {
     //console.log("Cluster ID",cluster.worker.id);
