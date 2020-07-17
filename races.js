@@ -2,8 +2,8 @@ const pool = require("./mypool").pool
 
 
 const saveRaceData = (request, response) => {
-  const {userid,competitionid, time, distance, steps, sex, birthdate, firstname, lastname, image, partials} = request.body
-    pool.query('INSERT INTO racedata (userid,competitionid, time, distance, steps, sex, birthdate, firstname, lastname, image, partials) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)', [userid,competitionid, time, distance, steps, sex, birthdate, firstname, lastname, image, partials], (error, results) => {
+  const {userid,competitionid, time, distance, steps, partials} = request.body
+    pool.query('INSERT INTO racedata (userid,competitionid, time, distance, steps, partials) VALUES ($1,$2,$3,$4,$5,$6)', [userid,competitionid, time, distance, steps, partials], (error, results) => {
       if (error) {
         throw error
       }
