@@ -80,6 +80,7 @@ else {
 
   app.get('/partials', dbr.getPartials)
   app.get('/races', dbr.getRaceByCompetitionId)
+  app.post('/races', dbr.saveRaceData)
   app.get('/raceuser', dbr.getRaceByUserId)
 
   function doWork(duration) {
