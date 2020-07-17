@@ -1,4 +1,16 @@
 const pool = require("./mypool").pool
+require('dotenv').config()
+
+const checkAdmin = (request, response) => {
+  const {id} = request.headers;
+  const admin = process.env.ADMIN
+  if(id == admin){
+    response.status(201).send(`True`)
+  }
+  else{
+    response.status(201).send(`False`)
+  }
+}
 
 const getUserById = (request, response) => {
     const {id} = request.headers;
@@ -152,5 +164,6 @@ module.exports = {
     addFollower,
     deleteFollower,
     getFollowers,
-    getFollowing
+    getFollowing,
+    checkAdmin
 }

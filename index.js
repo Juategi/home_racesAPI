@@ -57,6 +57,7 @@ else {
   app.get('/search', dbs.query)
   app.get('/numcompetitors', dbc.getCompetitionNumCompetitors)
   app.get('/competitorsimages', dbc.getCompetitionUserImages)
+  app.get('/admin', dbu.checkAdmin)
 
   app.get('/competitionsid', dbc.getCompetitionById)
   app.get('/competitions', dbc.getCompetitionsEnrolled)
