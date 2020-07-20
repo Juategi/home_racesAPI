@@ -61,8 +61,10 @@ insert into followers(userid,followerid) VALUES ('a4','iZPRzOkWDdWuD6IUl6spL4IJX
 insert into followers(userid,followerid) VALUES ('iZPRzOkWDdWuD6IUl6spL4IJXyC2','MuOh2S1rUxM58eLsGgqDKb3Lm0E3');
 insert into followers(userid,followerid) VALUES ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3','iZPRzOkWDdWuD6IUl6spL4IJXyC2');
 
-insert into racedata (userid, competitionid, time, distance, steps, partials) values ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 28, 3000, 21, 40000, '{"1":70 , "2":68, "3":86, "4":75, "5":88, "6":91, "7":"93", "8":"96", "9":98, "10":100}');
-insert into racedata (userid, competitionid, time, distance, steps, partials) values ('a1', 28, 3500, 21, 41000, '{}');
-insert into racedata (userid, competitionid, time, distance, steps, partials) values ('a2', 28, 3300, 21, 40500, '{}');
-insert into racedata (userid, competitionid, time, distance, steps, partials) values ('a3', 28, 3300, 21, 40504, '{}');
+insert into racedata (userid, competitionid, time, distance, steps, partials, racedate) values ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 28, 3000, 21, 40000, '{"1":70 , "2":68, "3":86, "4":75, "5":88, "6":91, "7":"93", "8":"96", "9":98, "10":100}', CURRENT_DATE);
+insert into racedata (userid, competitionid, time, distance, steps, partials, racedate) values ('a1', 28, 3500, 21, 41000, '{}', CURRENT_DATE);
+insert into racedata (userid, competitionid, time, distance, steps, partials, racedate) values ('a2', 28, 3300, 21, 40500, '{}', CURRENT_DATE);
+insert into racedata (userid, competitionid, time, distance, steps, partials, racedate) values ('a3', 28, 3300, 21, 40504, '{}', CURRENT_DATE);
+
+insert into racedata (userid, competitionid, time, distance, steps, partials, racedate) values ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 27, 4000, 21, 40000, '{"1":70 , "2":68, "3":86, "4":75, "5":88, "6":91, "7":"93", "8":"96", "9":98, "10":100}', '2020-07-15T22:00:00.000Z');
 
