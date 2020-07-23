@@ -101,6 +101,19 @@ const deleteUser = (request, response) => {
     })
 }
  
+const getKm = (request, response) => {
+  const {userid} = request.headers;
+  const statement = "select sum(distance) as km from racedata where userid = $1 union select sum(r.distance) as km from racedata r left join competition c on c.id=r.competitionid where userid = $1 and c.promoted = 'P'"
+  pool.query(statement,[userid], (error, results) => {
+    if (error) {
+      response.status(400).send(error)
+    }
+    else{
+      response.status(200).json(results.rows)
+    }
+  })
+}
+
 const addFollower = (request, response) => {
   const {userid,followerid} = request.body
     pool.query('INSERT INTO followers (userid,followerid) VALUES ($1,$2)', [userid,followerid], (error, results) => {
@@ -165,5 +178,6 @@ module.exports = {
     deleteFollower,
     getFollowers,
     getFollowing,
-    checkAdmin
+    checkAdmin,
+    getKm
 }
