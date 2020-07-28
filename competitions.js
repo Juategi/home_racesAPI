@@ -25,6 +25,31 @@ const createCompetition = (request, response) => {
 
 }
 
+const updateCompetition = (request, response) => {
+  const {id,name,image,type,modality,locality,price,capacity,timezone,rewards,observations,promoted,gallery,distance,eventdate,eventtime,enddate,endtime,maxdate,maxtime} = request.body
+  if(eventdate == "null"){
+    pool.query('UPDATE competition SET name = $1, image = $2, modality = $3, locality = $4, price = $5, capacity = $6, timezone = $7, rewards = $8, observations = $9, promoted = $10, gallery = $11, distance = $12, type = $14 where id = $13', [name,image,modality,locality,price,capacity,timezone,rewards,observations,promoted,gallery,distance,id, type], (error, results) => {
+      if (error) {
+        throw error
+      }
+      else{
+        response.status(201).send(`Updated competition with id: ${id}`)
+      }
+    })
+  }
+  else{
+    pool.query('UPDATE competition SET name = $1, image = $2, modality = $3, locality = $4, price = $5, capacity = $6, timezone = $7, rewards = $8, observations = $9, promoted = $10, gallery = $11, distance = $12, eventdate = $13, eventtime = $14, enddate = $15, endtime = $16, maxdate = $17, maxtime = $18, type = $20 where id = $19', [name,image,modality,locality,price,capacity,timezone,rewards,observations,promoted,gallery,distance,eventdate,eventtime,enddate,endtime,maxdate,maxtime,id,type], (error, results) => {
+      if (error) {
+        throw error
+      }
+      else{
+        response.status(201).send(`Updated competition with id: ${id}`)
+      }
+    })
+  }
+
+}
+
 const createOrganizer = (request, response) => {
   const {userid,competitionid,ip,iplocalization} = request.body
     pool.query('INSERT INTO organizer (userid,competitionid,ip,iplocalization,createdate,createtime) VALUES ($1,$2,$3,$4,CURRENT_DATE,LOCALTIME)', [userid,competitionid,ip,iplocalization], (error, results) => {
@@ -40,6 +65,19 @@ const createOrganizer = (request, response) => {
 const getCompetitionById = (request, response) => {
   const {id} = request.headers;
   const statement = "select n1.*, u.username as organizer, u.id as organizerid from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join competitors e on c.id = e.competitionid group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id and n1.id = $1"
+  pool.query(statement,[id], (error, results) => {
+    if (error) {
+      response.status(400).send(error)
+    }
+    else{
+      response.status(200).json(results.rows)
+    }
+  })
+}
+
+const getCompetitionsByOrganizer = (request, response) => {
+  const {id} = request.headers;
+  const statement = "select n1.*, u.username as organizer, u.id as organizerid from users u, (select c.*, count(*) as numcompetitors from competition c, (select c.name, c.id from competition c left join competitors e on c.id = e.competitionid group by c.id) n1 left join competitors e on n1.id = e.competitionid  where n1.id = c.id group by c.id) n1 left join organizer o on n1.id = o.competitionid where o.userid = u.id and o.userid = $1"
   pool.query(statement,[id], (error, results) => {
     if (error) {
       response.status(400).send(error)
@@ -222,5 +260,7 @@ module.exports = {
     getPrivate,
     deletePrivate,
     getCompetitionNumCompetitors,
-    getCompetitionUserImages
+    getCompetitionUserImages,
+    getCompetitionsByOrganizer,
+    updateCompetition
 }

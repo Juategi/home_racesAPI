@@ -179,5 +179,5 @@ module.exports = {
     getFollowers,
     getFollowing,
     checkAdmin,
-    getKm
+    getKm,
 }

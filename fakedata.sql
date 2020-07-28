@@ -68,4 +68,4 @@ insert into racedata (userid, competitionid, time, distance, steps, partials, ra
 
 insert into racedata (userid, competitionid, time, distance, steps, partials, racedate) values ('MuOh2S1rUxM58eLsGgqDKb3Lm0E3', 27, 4000, 21, 40000, '{"1":70 , "2":68, "3":86, "4":75, "5":88, "6":91, "7":"93", "8":"96", "9":98, "10":100}', '2020-07-15T22:00:00.000Z');
 
-select sum(distance) as km from racedata where userid = $1 union select sum(r.distance) as km from racedata r left join competition c on c.id=r.competitionid where userid = $1 and c.promoted = 'P';
+

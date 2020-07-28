@@ -49,7 +49,6 @@ else {
 
   app.get('/email', dbu.checkMail)
   app.get('/username', dbu.checkUsername)
-  app.post('/organizer', dbc.createOrganizer)
   app.post('/report', dbco.sendReport)
   app.post('/enrroll', dbc.enrrollCompetition)
   app.get('/popular', dbc.getCompetitionsPopular)
@@ -63,6 +62,10 @@ else {
   app.get('/competitionsid', dbc.getCompetitionById)
   app.get('/competitions', dbc.getCompetitionsEnrolled)
   app.post('/competitions', dbc.createCompetition)
+  app.put('/competitions', dbc.updateCompetition)
+
+  app.get('/organizer', dbc.getCompetitionsByOrganizer)
+  app.post('/organizer', dbc.createOrganizer)
 
   app.get('/favorites', dbc.getCompetitionsFavorites)
   app.delete('/favorites', dbc.deleteFromFavorites)
@@ -84,6 +87,7 @@ else {
   app.get('/races', dbr.getRaceByCompetitionId)
   app.post('/races', dbr.saveRaceData)
   app.get('/raceuser', dbr.getRaceByUserId)
+
 
   function doWork(duration) {
     const start = Date.now();
