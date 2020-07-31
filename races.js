@@ -2,8 +2,8 @@ const pool = require("./mypool").pool
 
 
 const saveRaceData = (request, response) => {
-  const {userid,competitionid, time, distance, steps, partials} = request.body
-    pool.query('INSERT INTO racedata (userid,competitionid, time, distance, steps, partials, racedate) VALUES ($1,$2,$3,$4,$5,$6,CURRENT_DATE)', [userid,competitionid, time, distance, steps, partials], (error, results) => {
+  const {userid,competitionid, time, distance, steps, partials, map} = request.body
+    pool.query('INSERT INTO racedata (userid,competitionid, time, distance, steps, partials, racedate, map) VALUES ($1,$2,$3,$4,$5,$6,CURRENT_DATE, $7)', [userid,competitionid, time, distance, steps, partials, map], (error, results) => {
       if (error) {
         throw error
       }
@@ -53,9 +53,23 @@ const getPartials = (request, response) => {
   })
 }
 
+const getMap = (request, response) => {
+  const {id} = request.headers;
+  const statement = "select map from racedata where id = $1"
+  pool.query(statement,[id], (error, results) => {
+    if (error) {
+      response.status(400).send(error)
+    }
+    else{
+      response.status(200).json(results.rows)
+    }
+  })
+}
+
 module.exports = {
     getRaceByCompetitionId,
     getPartials,
     getRaceByUserId,
-    saveRaceData
+    saveRaceData,
+    getMap
 }

@@ -84,6 +84,7 @@ else {
   app.delete('/private', dbc.deletePrivate)
 
   app.get('/partials', dbr.getPartials)
+  app.get('/map', dbr.getMap)
   app.get('/races', dbr.getRaceByCompetitionId)
   app.post('/races', dbr.saveRaceData)
   app.get('/raceuser', dbr.getRaceByUserId)

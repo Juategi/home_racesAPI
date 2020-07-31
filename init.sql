@@ -18,6 +18,6 @@ create table followers(userid varchar(100) not null, followerid varchar(100) not
 
 create table private(userid varchar(100) not null, competitionid integer not null, state varchar(10) not null, primary key(competitionid,userid), CONSTRAINT user_id_fkey FOREIGN KEY (userid) REFERENCES users (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT competition_id_fkey FOREIGN KEY (competitionid) REFERENCES competition (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE);
 
-create table racedata(id serial unique primary key, userid varchar(100) not null, competitionid integer not null, time integer not null, distance integer not null, steps integer not null, partials text not null , racedate date not null, CONSTRAINT user_id_fkey FOREIGN KEY (userid) REFERENCES users (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT competition_id_fkey FOREIGN KEY (competitionid) REFERENCES competition (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE);
+create table racedata(id serial unique primary key, userid varchar(100) not null, competitionid integer not null, time integer not null, distance integer not null, steps integer not null, partials text not null , racedate date not null, map text not null, CONSTRAINT user_id_fkey FOREIGN KEY (userid) REFERENCES users (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT competition_id_fkey FOREIGN KEY (competitionid) REFERENCES competition (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE);
 
 
